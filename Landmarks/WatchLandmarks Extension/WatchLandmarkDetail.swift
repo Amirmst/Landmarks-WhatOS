@@ -18,8 +18,38 @@ struct WatchLandmarkDetail: View {
     
     
     var body: some View {
-        CircleImage(image: landmark.image.resizable())
-        .scaledToFill()
+        ScrollView {
+            VStack {
+                CircleImage(image: landmark.image.resizable())
+                    .scaledToFit()
+                
+                Text(verbatim: self.landmark.name)
+                    .font(.headline)
+                    .lineLimit(0)
+                
+                Toggle(isOn: $userData.landmarks[landmarkIndex].isFavorite) {
+                    Text("Favorite")
+                }
+                
+                Divider()
+                
+                Text(self.landmark.park)
+                    .font(.caption)
+                    .bold()
+                    .lineLimit(0)
+                
+                Text(self.landmark.state)
+                    .font(.caption)
+                
+                Divider()
+                
+                WatchMapView(landmark: self.landmark)
+                .scaledToFit()
+                .padding()
+            }
+            .padding(16)
+        }
+    .navigationBarTitle("Landmarks")
     }
 }
 
